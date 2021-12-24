@@ -21,18 +21,20 @@ namespace LeGrandRestaurant.Test
             // ÉTANT DONNE un restaurant ayant le statut de filiale d'une franchise
             var franchise = new Franchise();
             var table = new Table();
-            var restaurant = new Restaurant(franchise, table);
+            var restaurant = new Restaurant();
+            restaurant.Franchiser();
 
-
-            restaurant.DébuterService();
 
             // ET une franchise définissant un menu ayant un plat
-            var plat = new Plat("Pates au saumon", 15.2);
             var menu = new Menu();
+            var plat = new Plat("Pates au saumon", 15.2);
+
             menu.ajouterPlat(plat);
             franchise.AjouteMenu(menu);
 
             // QUAND la franchise modifie le prix du platt
+            double Nouveau_prix = 18;
+            franchise.changerPrix("Pates au saumon", Nouveau_prix);
 
             //ALORS le prix du plat dans le menu du restaurant est celui défini par la franchise
             var tablesLibres = restaurant.TablesesLibres;

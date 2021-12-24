@@ -21,5 +21,10 @@ namespace LeGrandRestaurant
 
         }
 
+        public Plat recherchePlat(string nom)
+        {
+            return (Plat)_plats.Where(plat => plat.Nom == nom);
+        }
+
     }
 }

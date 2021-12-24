@@ -1,5 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace LeGrandRestaurant
 {
@@ -7,7 +8,14 @@ namespace LeGrandRestaurant
     {
         private readonly Table[] _tables ;
         private readonly Serveur[] _serveurs;
-        private readonly Franchise _franchise;
+        private Menu _menu { get; set; }
+
+        internal bool isFiliale { get; private set; } = true;
+
+        public Restaurant()
+        {
+
+        }
 
         public Restaurant(params Table[] tables)
         {
@@ -18,12 +26,18 @@ namespace LeGrandRestaurant
             _serveurs = serveurs;
         }
 
-
-        public Restaurant(Franchise franchise, params Table[] tables)
+        public Menu Menu
         {
-            _tables = tables;
-            _franchise = franchise;
+            get => _menu;
+            set => _menu = value;
         }
+
+        public void Franchiser()
+        {
+            isFiliale = false;
+        }
+
+        public bool IsFiliale => isFiliale;
 
         public Table[] TablesesLibres => _tables.Where(table => table.EstLibre).ToArray();
 
@@ -39,5 +53,6 @@ namespace LeGrandRestaurant
         {
            
         }
+
     }
 }
