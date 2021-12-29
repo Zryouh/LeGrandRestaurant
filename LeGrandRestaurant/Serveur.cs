@@ -6,11 +6,21 @@ using System.Threading.Tasks;
 
 namespace LeGrandRestaurant
 {
-    public class Serveur
+    public class Serveur : TableAffected
     {
 
+        private readonly int _Id;
         private readonly List<Commande> _getCommandes = new();
-       
+
+        public Serveur(int Id)
+        {
+            this._Id = Id;
+        }
+        public int getId()
+        {
+            return this._Id;
+        }
+
         public void getFood(Commande commande)
         {
             _getCommandes.Add(commande);

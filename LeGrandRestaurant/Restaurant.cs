@@ -10,7 +10,19 @@ namespace LeGrandRestaurant
         private readonly Serveur[] _serveurs;
         private Menu _menu { get; set; }
 
-        internal bool isFiliale { get; private set; } = true;
+        private bool isFiliale = true;
+        private readonly int _Id;
+       
+
+        public Restaurant(int Id)
+        {
+            this._Id = Id;
+        }
+        public int getId()
+        {
+            return this._Id;
+        }
+
 
         public Restaurant()
         {
@@ -35,6 +47,21 @@ namespace LeGrandRestaurant
         public void Franchiser()
         {
             isFiliale = false;
+        }
+        public bool getisFiliale()
+        {
+            return isFiliale;
+        }
+        public void changePricePlat(string nomPlat, double newPrice)
+        {
+            var plats = _menu.getPlat();
+            foreach(Plat plat in plats)
+            {
+                if (plat.Nom == nomPlat)
+                    plat.Prix = newPrice;
+            }
+
+
         }
 
         public bool IsFiliale => isFiliale;

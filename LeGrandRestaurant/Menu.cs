@@ -8,7 +8,7 @@ namespace LeGrandRestaurant
 {
     public class Menu
     {
-        private List<Plat> _plats { get; set; }
+        private List<Plat> _plats { get; set; } = new List<Plat>();
 
         public Menu()
         {
@@ -26,5 +26,9 @@ namespace LeGrandRestaurant
             return (Plat)_plats.Where(plat => plat.Nom == nom);
         }
 
+        public List<Plat> getPlat()
+        {
+            return this._plats;
+        }
     }
 }

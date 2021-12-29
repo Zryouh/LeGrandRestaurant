@@ -8,9 +8,9 @@ namespace LeGrandRestaurant
 {
     public class Franchise
     {
-        
+
         private Menu _menu { get; set; }
-        private List<Restaurant> _restaurants = new ();
+        private List<Restaurant> _restaurants = new();
 
         public Franchise()
         {
@@ -20,6 +20,7 @@ namespace LeGrandRestaurant
 
         public void AjouteMenu(Menu menu)
         {
+            _menu = menu;
             foreach (Restaurant restaurant in RestaurantsFiliale)
             {
                 restaurant.Menu = menu;
@@ -32,14 +33,49 @@ namespace LeGrandRestaurant
         }
 
 
-            public void changerPrix(string nom, double prix)
+        public void changerPrix(string nom, double prix)
         {
-            foreach(Restaurant restaurant in RestaurantsFiliale)
+            foreach (Restaurant restaurant in RestaurantsFiliale)
             {
-                Plat monPlat = restaurant.Menu.recherchePlat(nom);
-                monPlat.Prix = prix;
+                restaurant.changePricePlat(nom, prix);
+               
             }
-            
+            var plats = _menu.getPlat();
+            foreach (Plat plat in plats)
+            {
+                if (plat.Nom == nom)
+                    plat.Prix = prix;
+            }
+
+        }
+        public void changerPrixPlatRestaurant(string nomPlat, int idRestaurant, double newPrice)
+        {
+            foreach (Restaurant restaurant in RestaurantsFiliale)
+            {
+                if (restaurant.getId() == idRestaurant && !restaurant.getisFiliale())
+                {
+                    restaurant.changePricePlat(nomPlat, newPrice);
+                }
+            }
+
+        }
+
+        public double getPricePlatRestaurant(string nomPlat, int IdRestaurant)
+        {
+            double price = 0;
+            foreach(Restaurant restaurant in _restaurants)
+            {
+                if(restaurant.getId() == IdRestaurant)
+                {
+                    var plats = restaurant.Menu.getPlat();
+                    foreach(Plat plat in plats)
+                    {
+                        if (plat.Nom == nomPlat)
+                            price = plat.Prix;
+                    }
+                }
+            }
+            return price;
         }
     }
 }

@@ -21,9 +21,9 @@ namespace LeGrandRestaurant.Test
             // ÉTANT DONNE un restaurant ayant le statut de filiale d'une franchise
             var franchise = new Franchise();
             var table = new Table();
-            var restaurant = new Restaurant();
+            var restaurant = new Restaurant(1);
             restaurant.Franchiser();
-
+            franchise.AjouterRestaurant(restaurant);
 
             // ET une franchise définissant un menu ayant un plat
             var menu = new Menu();
@@ -31,14 +31,14 @@ namespace LeGrandRestaurant.Test
 
             menu.ajouterPlat(plat);
             franchise.AjouteMenu(menu);
-
-            // QUAND la franchise modifie le prix du platt
+            restaurant.Menu = menu;
+            // QUAND la franchise modifie le prix du plat
             double Nouveau_prix = 18;
             franchise.changerPrix("Pates au saumon", Nouveau_prix);
-
+            franchise.changerPrixPlatRestaurant("Pates au saumon", 1, 25);
             //ALORS le prix du plat dans le menu du restaurant est celui défini par la franchise
-            var tablesLibres = restaurant.TablesesLibres;
-            Assert.DoesNotContain(table, tablesLibres);
+            
+            Assert.Equal(franchise.getPricePlatRestaurant("Pates au saumon", 1),18 );
         }
     }
 }

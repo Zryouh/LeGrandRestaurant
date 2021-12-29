@@ -10,7 +10,7 @@ namespace LeGrandRestaurant.Test
         public void CommandeClient_ajoutTache()
         {
             // ÉTANT DONNE un serveur dans un restaurant
-            var serveur = new Serveur();
+            var serveur = new Serveur(1);
             var commande = new Commande();
             var restaurant = new Restaurant(serveur);
 
@@ -29,7 +29,7 @@ namespace LeGrandRestaurant.Test
         public void CommandeClient_retireTache()
         {
             // ÉTANT DONNE un serveur dans un restaurant
-            var serveur = new Serveur();
+            var serveur = new Serveur(1);
             var commande = new Commande();
             var restaurant = new Restaurant(serveur);
 
