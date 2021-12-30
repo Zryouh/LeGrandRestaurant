@@ -23,7 +23,13 @@ namespace LeGrandRestaurant
 
         public Plat recherchePlat(string nom)
         {
-            return (Plat)_plats.Where(plat => plat.Nom == nom);
+            foreach (Plat plat in _plats)
+            {
+                if (plat.Nom == nom)
+                    return plat;
+            }
+            return null;
+            
         }
 
         public List<Plat> getPlat()

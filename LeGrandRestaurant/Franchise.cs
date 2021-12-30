@@ -37,20 +37,21 @@ namespace LeGrandRestaurant
         {
             foreach (Restaurant restaurant in RestaurantsFiliale)
             {
+                if(restaurant.IsFiliale)
                 restaurant.changePricePlat(nom, prix);
                
             }
-            var plats = _menu.getPlat();
-            foreach (Plat plat in plats)
-            {
-                if (plat.Nom == nom)
-                    plat.Prix = prix;
-            }
+            //var plats = _menu.getPlat();
+            //foreach (Plat plat in plats)
+            //{
+            //    if (plat.Nom == nom)
+            //        plat.Prix = prix;
+            //}
 
         }
         public void changerPrixPlatRestaurant(string nomPlat, int idRestaurant, double newPrice)
         {
-            foreach (Restaurant restaurant in RestaurantsFiliale)
+            foreach (Restaurant restaurant in _restaurants)
             {
                 if (restaurant.getId() == idRestaurant && !restaurant.getisFiliale())
                 {

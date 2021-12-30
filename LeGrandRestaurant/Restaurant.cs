@@ -10,7 +10,7 @@ namespace LeGrandRestaurant
         private readonly Serveur[] _serveurs;
         private Menu _menu { get; set; }
 
-        private bool isFiliale = true;
+        private bool isFiliale = false;
         private readonly int _Id;
        
 
@@ -44,9 +44,9 @@ namespace LeGrandRestaurant
             set => _menu = value;
         }
 
-        public void Franchiser()
+        public void BeFiliale()
         {
-            isFiliale = false;
+            isFiliale = true;
         }
         public bool getisFiliale()
         {
@@ -60,11 +60,9 @@ namespace LeGrandRestaurant
                 if (plat.Nom == nomPlat)
                     plat.Prix = newPrice;
             }
-
-
         }
 
-        public bool IsFiliale => isFiliale;
+        public bool IsFiliale => isFiliale; 
 
         public Table[] TablesesLibres => _tables.Where(table => table.EstLibre).ToArray();
 
@@ -79,6 +77,11 @@ namespace LeGrandRestaurant
         public void nbrTables(int table)
         {
            
+        }
+        public void AjouteMenu(Menu menu)
+        {
+            _menu = menu;
+            
         }
 
     }
