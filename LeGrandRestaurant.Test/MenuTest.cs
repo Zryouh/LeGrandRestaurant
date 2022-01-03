@@ -38,7 +38,7 @@ namespace LeGrandRestaurant.Test
             franchise.changerPrixPlatRestaurant("Pates au saumon", 1, 25);
             //ALORS le prix du plat dans le menu du restaurant est celui défini par la franchise
             
-            Assert.Equal(franchise.getPricePlatRestaurant("Pates au saumon", 1),18 );
+            Assert.Equal(18 , franchise.getPricePlatRestaurant("Pates au saumon", 1));
         }
 
         [Fact(DisplayName = "ÉTANT DONNE un restaurant appartenant à une franchise et définissant un menu ayant un plat " +
@@ -69,7 +69,7 @@ namespace LeGrandRestaurant.Test
             franchise.changerPrix("Pates au saumon", Nouveau_prix);
             //ALORS le prix du plat dans le menu du restaurant reste inchangé
             
-            Assert.Equal(franchise.getPricePlatRestaurant("Pates au saumon",1), 25);
+            Assert.Equal(25, franchise.getPricePlatRestaurant("Pates au saumon",1));
         }
 
         [Fact(DisplayName = "ÉTANT DONNE un restaurant appartenant à une franchise et définissant un menu ayant un plat " +
@@ -90,16 +90,18 @@ namespace LeGrandRestaurant.Test
             var plat = new Plat("Pates au saumon", 15.2);
 
             menu.ajouterPlat(plat);
-            franchise.AjouteMenu(menu);
-          
-            restaurant.AjouteMenu(menu);
             //QUAND la franchise ajoute un nouveau plat
-            franchise.changerPrixPlatRestaurant("Pates au saumon", 1, 25);
-            double Nouveau_prix = 18;
-            franchise.changerPrix("Pates au saumon", Nouveau_prix);
+            var plat2 = new Plat("hamburger", 18);
+            menu.ajouterPlat(plat2);
+
+            franchise.AjouteMenu(menu);
+            restaurant.AjouteMenu(menu);
+
             //ALORS la carte du restaurant propose le premier plat au prix du restaurant et le second au prix de la franchise
 
-            Assert.NotEqual();
+            Assert.NotEqual(restaurant.Menu.recherchePlat("Pates au saumon").Prix, franchise.getPricePlatRestaurant("hamburger", 1));
+
+
         }
     }
 }

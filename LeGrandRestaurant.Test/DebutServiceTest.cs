@@ -119,6 +119,61 @@ namespace LeGrandRestaurant.Test
            
         }
 
+        [Fact(DisplayName = "ÉTANT DONNÉ un restaurant ayant 3 tables dont une affectée à un serveur" +
+                            "ET ayant débuté son service" +
+                            "QUAND le service débute ET qu'une table est affectée à un serveur" +
+                            "ALORS la table éditée est affectée au serveur et les deux autres au maître d'hôtel")]
+        public void AffectationTable_Serveur_Maitre_ServiceFini()
+        {
+            // ÉTANT DONNÉ un restaurant ayant 3 tables dont une affectée à un serveur
+            var tables = new List<Table>() { new Table(), new Table(), new Table() };
+            var master = new Master(1);
+            var serveur = new Serveur(1);
+            var restaurant = new Restaurant(tables.ToArray());
+
+            restaurant.DébuterService();
+            
+
+            // QUAND le service se termine
+            restaurant.FinService();
+
+            //ET qu'une table est affectée à un serveur
+            var j = 0;
+            foreach(var table in tables )
+            {
+                if (j == 1)
+                    table.AffecterS(serveur);
+            }
+
+            // ALORS la table éditée est affectée au serveur et les deux autres au maître d'hôtel
+            var i = 0;
+            foreach (var table in tables)
+            {
+                if (i < 2)
+                {
+                    table.AffecterM(master);
+                    i++;
+                }
+                else
+                    table.AffecterS(serveur);
+            }
+
+            var numTableMaster = 0;
+            var numTableServeur = 0;
+
+            foreach (var table in tables)
+            {
+                if (table.gettableAffectedMaster() != null)
+                    numTableMaster++;
+                else if (table.gettableAffectedServeur() != null)
+                    numTableServeur++;
+
+            }
+
+            Assert.Equal(numTableMaster, 2);
+            Assert.Equal(numTableServeur, 1);
+        }
+
     }
 
 }
