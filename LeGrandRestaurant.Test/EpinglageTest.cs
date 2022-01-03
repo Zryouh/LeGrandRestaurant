@@ -18,7 +18,7 @@ namespace LeGrandRestaurant.Test
             var commande = new Commande();
             var serveur = new Serveur(commande);
             var restaurant = new Restaurant(serveur);
-            var epinglage = new Epinglage();
+            
 
             serveur.takeOrder(commande);
 
@@ -26,8 +26,9 @@ namespace LeGrandRestaurant.Test
             var reponse = serveur.OrderNoPaid(commande);
 
             // ALORS cette commande est marquée comme épinglée
-            epinglage.OrderEping(reponse);
-            Assert.True(reponse);
+            var epinglage = new Epinglage(commande, DateTime.Now);
+            restaurant.addToEpinglage(epinglage);
+            Assert.True(commande.IsEpingle());
 
 
         }
@@ -38,27 +39,65 @@ namespace LeGrandRestaurant.Test
         public void CommandeNoPaid_Gendarmerie()
         {
             // ÉTANT DONNE un serveur ayant épinglé une commande
-
+            var restaurant = new Restaurant();
             var commandes = new List<Commande>() { new Commande(), new Commande(), new Commande() };
-            var commande1 = new Commande();
-            var commande2 = new Commande();
-            var commande3 = new Commande();
-            var serveur1 = new Serveur(commande1);
-            var serveur2 = new Serveur(commande2);
-            var serveur3 = new Serveur(commande3);
-            var reponse1 = serveur1.OrderNoPaid(commande1);
-            var reponse2 = serveur2.OrderNoPaid(commande2);
-            var reponse3 = serveur3.OrderNoPaid(commande3);
-            var epingle1 = new Epinglage(reponse1, new DateTime(01-01-2022));
-            var epingle2 = new Epinglage(reponse2, new DateTime(15-12-2021));
-            var epingle3 = new Epinglage(reponse3, new DateTime(01-12-2020));
-            
-
+            var commande = new Commande();
+            var serveur = new Serveur(commande);
+            var reponse = serveur.OrderNoPaid(commande);
+            var epingle = new Epinglage(commande, new DateTime(2021,12,15));
             // QUAND elle date d'il y a au moins 15 jours 
-            var reponse = commande1.DateSendGendarmerie(epingle1);
+            restaurant.checkDateCommande(epingle);
 
             // ALORS cette commande est marquée comme à transmettre gendarmerie
-            Assert.Contains("transmettre gendarmerie", reponse);
+            Assert.True(epingle.isSendGendarmerie);
+        }
+
+        [Fact(DisplayName = "ÉTANT DONNE une commande à transmettre gendarmerie " +
+                            "QUAND on consulte la liste des commandes à transmettre du restaurant " +
+                            "ALORS elle y figure")]
+        public void CommandeNoPaid_Gendarmerie_List()
+        {
+            // ÉTANT DONNE une commande Epingler à transmettre gendarmerie 
+            var restaurant = new Restaurant();
+            var commande = new Commande();
+           
+            var serveur = new Serveur(commande);
+            var reponse = serveur.OrderNoPaid(commande);
+            var epingle = new Epinglage(commande, new DateTime(2021, 12, 15));
+            restaurant.addToEpinglage(epingle);
+
+            restaurant.checkDateCommande(epingle);
+
+            //QUAND on consulte la liste des commandes à transmettre du restaurant
+            
+            var commandesSentAuxPoulets = restaurant.getListOrderGendarmerie;
+            
+            // ALORS elle y figure
+            Assert.Contains(commandesSentAuxPoulets, epingle => epingle._commande == commande);
+        }
+
+        [Fact(DisplayName = "ÉTANT DONNE une commande à transmettre gendarmerie " +
+                           "QUAND elle est marquée comme transmise à la gendarmerie " +
+                           "ALORS elle ne figure plus dans la liste des commandes à transmettre du restaurant")]
+        public void CommandeNoPaid_Gendarmerie_NoList()
+        {
+            // ÉTANT DONNE une commande à transmettre gendarmerie
+            var restaurant = new Restaurant();
+            var commande = new Commande();
+
+            var serveur = new Serveur(commande);
+            var reponse = serveur.OrderNoPaid(commande);
+            var epingle = new Epinglage(commande, new DateTime(2021, 12, 15));
+            restaurant.addToEpinglage(epingle);
+
+
+            //QUAND elle est marquée comme transmise à la gendarmerie 
+            restaurant.checkDateCommande(epingle);
+
+            
+
+            // ALORS elle ne figure plus dans la liste des commandes à transmettre du restaurant
+            Assert.DoesNotContain(restaurant.getListOrderATransmettre, epingle => epingle._commande == commande);
         }
 
     }

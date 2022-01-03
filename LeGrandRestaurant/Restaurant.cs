@@ -10,10 +10,11 @@ namespace LeGrandRestaurant
         private readonly Table[] _tables ;
         private readonly Serveur[] _serveurs;
         private Menu _menu { get; set; }
-
         private bool isFiliale = false;
         private readonly int _Id;
-       
+        public List<Epinglage> epinglages = new List<Epinglage>();
+
+        public List<Epinglage> sentPoulet = new List<Epinglage>();
 
         public Restaurant(int Id)
         {
@@ -89,5 +90,37 @@ namespace LeGrandRestaurant
         {
            
         }
+        public void addToEpinglage(Epinglage epinglage)
+        {
+            epinglages.Add(epinglage);
+        }
+        public void checkDateCommande(Epinglage epeingle)
+        {
+            DateTime today = DateTime.Now;
+            DateTime limit = epeingle.GetDate.AddDays(15);
+            if (today >= limit)
+            {
+                epeingle.isSendGendarmerie = true;
+                this.addToSentPoulet(epeingle);
+            }
+
+
+        }
+        public void addToSentPoulet(Epinglage epinglage)
+        {
+            sentPoulet.Add(epinglage);
+            this.removeFromEpinglage(epinglage);
+        }
+
+        public void removeFromEpinglage(Epinglage epinglage)
+        {
+            epinglages.Remove(epinglage);
+        }
+
+        public IEnumerable<Epinglage> getListOrderGendarmerie => sentPoulet;
+        public IEnumerable<Epinglage> getListOrderATransmettre => epinglages;
+
+
+
     }
 }

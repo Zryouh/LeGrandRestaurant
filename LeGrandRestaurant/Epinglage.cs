@@ -8,44 +8,25 @@ namespace LeGrandRestaurant
 {
     public class Epinglage
     {
-        
-        private bool _isEping = false;
-        private Serveur serveur;
-        private Commande command;
-
-      
-        public  DateTime date;
-
-        List<Commande> commandeNotPaid = new List<Commande>();
-
-
-        public Epinglage()
-        {
-           
-        }
-        public Epinglage(bool isEping, DateTime date)
-        {
-            this._isEping = isEping;
-            this.date = date;
-            
-        }
+        public Commande _commande;
+        public DateTime _date;
+        public bool isSendGendarmerie = true;
        
-
-
-        public bool OrderEping(bool isPaid)
+       
+        public Epinglage(Commande commande, DateTime date)
         {
-            if(isPaid)
-                commandeNotPaid.Add(command);
-
-            return isPaid;
-            
+            commande.makeEpingle();
+            this._commande = commande;
+            this._date = date;
         }
-      
+
         public DateTime GetDate
         {
             get { return _date; }
             set { _date = value; }
         }
+
+        
 
     }
 }

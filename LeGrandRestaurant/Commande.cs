@@ -8,20 +8,16 @@ namespace LeGrandRestaurant
 {
     public class Commande
     {
-        private string _sendMessage = "transmettre gendarmerie";
-        private Epinglage epingle;
-        private bool isSendGendarmerie = false;
-        public string DateSendGendarmerie(Epinglage epinglage)
-        {
-            DateTime localDate = DateTime.Now;
-            if (localDate.Day - epinglage.GetDate.Day >= 15)
-            {
-                this.isSendGendarmerie = true;
-                return this._sendMessage;
-            }
-            return "";
-            
+        private bool isEpingle = false;
 
+        public void makeEpingle()
+        {
+            this.isEpingle = true;
+        }
+
+        public bool IsEpingle()
+        {
+            return this.isEpingle;
         }
 
     }
