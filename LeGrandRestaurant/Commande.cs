@@ -8,8 +8,9 @@ namespace LeGrandRestaurant
 {
     public class Commande
     {
-        private bool isEpingle = false;
 
+        private bool isEpingle = false;
+        public readonly List<Plat> _getPlats = new();
         public void makeEpingle()
         {
             this.isEpingle = true;
@@ -20,5 +21,9 @@ namespace LeGrandRestaurant
             return this.isEpingle;
         }
 
+        public void ajouterPlat(Plat plat)
+        {
+            _getPlats.Add(plat);
+        }
     }
 }

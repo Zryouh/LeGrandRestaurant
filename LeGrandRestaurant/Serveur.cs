@@ -13,7 +13,10 @@ namespace LeGrandRestaurant
         private readonly List<Commande> _getCommandes = new();
         private bool isNotPaid = false;
         private Commande _commande { get; set; }
-      
+
+        private double CA { get; set; }
+        
+
 
         public bool OrderNoPaid(Commande commande)
         {
@@ -26,6 +29,17 @@ namespace LeGrandRestaurant
             this._Id = Id;
             
         }
+
+        public double getCA()
+        {
+            return this.CA;
+        }
+
+        public double ajouterCA(double prix)
+        {
+            return this.CA += prix;
+
+        }
         public Serveur(Commande commande)
         {
             this._commande = commande;
@@ -37,7 +51,12 @@ namespace LeGrandRestaurant
 
         public void takeOrder(Commande commande)
         {
+            
              _getCommandes.Add(commande);
+            foreach(Plat plat in commande._getPlats)
+            {
+                this.ajouterCA(plat.Prix);
+            }
             
         }
 
