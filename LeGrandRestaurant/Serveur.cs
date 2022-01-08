@@ -13,7 +13,7 @@ namespace LeGrandRestaurant
         private readonly List<Commande> _getCommandes = new();
         private bool isNotPaid = false;
         private Commande _commande { get; set; }
-
+        private  Restaurant _restaurant;
         private double CA { get; set; }
         
 
@@ -61,8 +61,15 @@ namespace LeGrandRestaurant
             foreach(Plat plat in commande._getPlats)
             {
                 this.ajouterCA(plat.Prix);
+                this._restaurant.ajouterCA_Restaurant(plat.Prix);
             }
             
+        }
+        
+
+        public  void setRestauant(Restaurant restaurant)
+        {
+            this._restaurant = restaurant;
         }
 
         public void getFood(Commande commande)

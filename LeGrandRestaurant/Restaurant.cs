@@ -16,8 +16,8 @@ namespace LeGrandRestaurant
         public List<Epinglage> epinglages = new List<Epinglage>();
 
         public List<Epinglage> sentPoulet = new List<Epinglage>();
+        public double CA_Restaurant { get; set; }
 
-       
 
         public Restaurant(int Id)
         {
@@ -44,8 +44,17 @@ namespace LeGrandRestaurant
         }
         public Restaurant(IEnumerable<Serveur> serveurs)
         {
+            foreach(Serveur serveur in _serveurss)
+            {
+                serveur.setRestauant(this);
+            }
 
             _serveurss = serveurs;
+        }
+
+        public void ajouterCA_Restaurant(double prix)
+        {
+            this.CA_Restaurant += prix;
         }
 
         public Menu Menu

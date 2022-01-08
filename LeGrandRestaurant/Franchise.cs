@@ -11,11 +11,13 @@ namespace LeGrandRestaurant
 
         private Menu _menu { get; set; }
         private List<Restaurant> _restaurants = new();
-        public double CA_Restaurant { get; set; }
+        
+
 
         public Franchise()
         {
         }
+
 
         public Restaurant[] RestaurantsFiliale => _restaurants.Where(restau => restau.IsFiliale).ToArray();
 
@@ -78,6 +80,16 @@ namespace LeGrandRestaurant
                 }
             }
             return price;
+        }
+
+        public double getCA()
+        {
+            double total = 0;
+            foreach(Restaurant restaurant in _restaurants)
+            {
+                total += restaurant.CA_Restaurant;
+            }
+            return total;
         }
     }
 }

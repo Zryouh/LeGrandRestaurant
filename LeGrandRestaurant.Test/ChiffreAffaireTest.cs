@@ -90,33 +90,55 @@ namespace LeGrandRestaurant.Test
             var plat = new Plat("pates au saumon", rdn.Next()) ;
             var commande = new Commande(plat);
 
-
-            var serveurs = new ServeurGenerator().Generate(100);
+            var nbrServeurs = 100;
+            var serveurs = new ServeurGenerator().Generate(nbrServeurs);
 
             var restaurant = new Restaurant(serveurs);
 
             //QUAND tous les serveurs prennent une commande d'un montant Y
-
-            var i = 0;
-            var somme = 0;
+            
             foreach(Serveur serveur in serveurs)
             {
-
                 serveur.takeOrder(commande);
-
-               
             }
-            
-
-
-            //var allSTakeOrder = restaurant.TacheCuisine;
-            //var plat = new Plat();
-
-            //plat.Prix();
-
-
             //ALORS le chiffre d'affaires de la franchise est X * Y
 
+            Assert.Equal(nbrServeurs * plat.Prix, restaurant.CA_Restaurant);
+
+        }
+
+        // SCOPE Franchise
+        [Fact(DisplayName = "ÉTANT DONNÉ une franchise ayant X restaurants de Y serveurs chacuns " +
+                            "QUAND tous les serveurs prennent une commande d'un montant Z " +
+                            "ALORS le chiffre d'affaires de la franchise est X * Y * Z" +
+                            "CAS(X = 0; X = 1; X = 2; X = 1000)" +
+                            "CAS(Y = 0; Y = 1; Y = 2; Y = 1000)" +
+                            "CAS(Z = 1.0)" )]
+        public void ChiffreAffaireAtRestaurantAtServeur()
+        {
+            //ÉTANT DONNÉ une franchise ayant X restaurants de Y serveurs chacuns
+
+            Random rdn = new Random();
+            var plat = new Plat("pates au saumon", rdn.Next());
+            var commande = new Commande(plat);
+
+            var nbrServeurs = 100;
+            var serveurs = new ServeurGenerator().Generate(nbrServeurs);
+
+            var restaurant = new Restaurant(serveurs);
+
+            //QUAND tous les serveurs prennent une commande d'un montant Z
+
+            foreach (Serveur serveur in serveurs)
+            {
+                serveur.takeOrder(commande);
+            }
+            //ALORS le chiffre d'affaires de la franchise est X * Y * Z
+            //CAS(X = 0; X = 1; X = 2; X = 1000)
+            //CAS(Y = 0; Y = 1; Y = 2; Y = 1000)
+            //CAS(Z = 1.0)
+
+            Assert.Equal(nbrServeurs * plat.Prix, restaurant.CA_Restaurant);
 
         }
 
