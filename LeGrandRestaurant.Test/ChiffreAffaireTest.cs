@@ -1,4 +1,7 @@
-﻿using Xunit;
+﻿using LeGrandRestaurant.Test.Helpers;
+using System;
+using System.Collections.Generic;
+using Xunit;
 
 namespace LeGrandRestaurant.Test
 {
@@ -82,12 +85,39 @@ namespace LeGrandRestaurant.Test
         public void ChiffreAffaireAtRestaurant()
         {
             //ÉTANT DONNÉ un restaurant ayant X serveurs
-            
+
+            Random rdn = new Random();
+            var plat = new Plat("pates au saumon", rdn.Next()) ;
+            var commande = new Commande(plat);
+
+
+            var serveurs = new ServeurGenerator().Generate(100);
+
+            var restaurant = new Restaurant(serveurs);
+
             //QUAND tous les serveurs prennent une commande d'un montant Y
+
+            var i = 0;
+            var somme = 0;
+            foreach(Serveur serveur in serveurs)
+            {
+
+                serveur.takeOrder(commande);
+
+               
+            }
+            
+
+
+            //var allSTakeOrder = restaurant.TacheCuisine;
+            //var plat = new Plat();
+
+            //plat.Prix();
+
 
             //ALORS le chiffre d'affaires de la franchise est X * Y
 
-           
+
         }
 
     }

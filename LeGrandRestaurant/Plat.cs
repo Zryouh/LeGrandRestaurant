@@ -10,7 +10,10 @@ namespace LeGrandRestaurant
     {
         private string _nom { get; set; }
         private double _prix { get; set; }
-
+        public Plat()
+        {
+        
+        }
         public Plat(string nom, double prix)
         {
             _nom = nom;
@@ -29,6 +32,7 @@ namespace LeGrandRestaurant
             _prix = prix;
         }
         public string Nom => _nom;
+        
 
     }
 }

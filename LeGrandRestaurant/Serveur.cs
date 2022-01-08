@@ -22,6 +22,11 @@ namespace LeGrandRestaurant
         {
             return this.isNotPaid = true;
         }
+        public Serveur()
+        {
+            
+
+        }
 
 
         public Serveur(int Id )

@@ -11,6 +11,7 @@ namespace LeGrandRestaurant
 
         private Menu _menu { get; set; }
         private List<Restaurant> _restaurants = new();
+        public double CA_Restaurant { get; set; }
 
         public Franchise()
         {

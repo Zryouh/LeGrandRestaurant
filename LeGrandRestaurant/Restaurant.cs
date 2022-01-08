@@ -12,9 +12,12 @@ namespace LeGrandRestaurant
         private Menu _menu { get; set; }
         private bool isFiliale = false;
         private readonly int _Id;
+        private readonly IEnumerable<Serveur> _serveurss;
         public List<Epinglage> epinglages = new List<Epinglage>();
 
         public List<Epinglage> sentPoulet = new List<Epinglage>();
+
+       
 
         public Restaurant(int Id)
         {
@@ -38,6 +41,11 @@ namespace LeGrandRestaurant
         public Restaurant(params Serveur[] serveurs)
         {
             _serveurs = serveurs;
+        }
+        public Restaurant(IEnumerable<Serveur> serveurs)
+        {
+
+            _serveurss = serveurs;
         }
 
         public Menu Menu

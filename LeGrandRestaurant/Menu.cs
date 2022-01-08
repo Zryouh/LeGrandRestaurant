@@ -10,6 +10,9 @@ namespace LeGrandRestaurant
     {
         private List<Plat> _plats { get; set; } = new List<Plat>();
 
+        private List<double> _prix { get; set; } = new List<double>();
+
+      
         public Menu()
         {
 
@@ -18,6 +21,7 @@ namespace LeGrandRestaurant
         public void ajouterPlat(Plat plat)
         {
             _plats.Add(plat);
+            
 
         }
 
@@ -36,5 +40,14 @@ namespace LeGrandRestaurant
         {
             return this._plats;
         }
+
+        //public List<Plat> getPrix()
+        //{
+        //    foreach(Plat plat in _plats)
+        //    {
+        //        return this._prix.Add(plat.Prix);
+        //    }
+        //    return null;
+        //}
     }
 }
