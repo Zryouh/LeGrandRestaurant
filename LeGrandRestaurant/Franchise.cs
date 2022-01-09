@@ -11,13 +11,18 @@ namespace LeGrandRestaurant
 
         private Menu _menu { get; set; }
         private List<Restaurant> _restaurants = new();
-        
+
+        private readonly Restaurant _restaurant = new();
 
 
         public Franchise()
         {
         }
 
+        public Franchise(Restaurant restaurant)
+        {
+            this._restaurant = restaurant;
+        }
 
         public Restaurant[] RestaurantsFiliale => _restaurants.Where(restau => restau.IsFiliale).ToArray();
 
@@ -32,7 +37,17 @@ namespace LeGrandRestaurant
 
         public void AjouterRestaurant(Restaurant restaurant)
         {
+            
             _restaurants.Add(restaurant);
+        }
+
+        public void AjouterRestaurants(List<Restaurant> restaurants)
+        {
+            foreach (Restaurant restaurant in restaurants)
+            {
+                _restaurants = restaurants;
+            }
+
         }
 
 

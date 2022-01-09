@@ -8,11 +8,11 @@ namespace LeGrandRestaurant
     public class Restaurant
     {
         private readonly Table[] _tables ;
-        private readonly Serveur[] _serveurs;
+        private Serveur[] _serveurs { get; set; }
         private Menu _menu { get; set; }
         private bool isFiliale = false;
         private readonly int _Id;
-        private readonly IEnumerable<Serveur> _serveurss;
+       
         public List<Epinglage> epinglages = new List<Epinglage>();
 
         public List<Epinglage> sentPoulet = new List<Epinglage>();
@@ -27,6 +27,17 @@ namespace LeGrandRestaurant
         {
             return this._Id;
         }
+        public Serveur[] getServeurs()
+        {
+            return this._serveurs;
+        }
+        public void addServeurs(Serveur[] serveurs)
+        {
+            foreach(Serveur serveur in serveurs)
+            {
+                this._serveurs.Concat(serveurs);
+            }
+        }
 
 
         public Restaurant()
@@ -40,18 +51,13 @@ namespace LeGrandRestaurant
         }
         public Restaurant(params Serveur[] serveurs)
         {
-            _serveurs = serveurs;
-        }
-        public Restaurant(IEnumerable<Serveur> serveurs)
-        {
-            foreach(Serveur serveur in _serveurss)
+            foreach (Serveur serveur in serveurs)
             {
                 serveur.setRestauant(this);
             }
-
-            _serveurss = serveurs;
+            _serveurs = serveurs;
         }
-
+     
         public void ajouterCA_Restaurant(double prix)
         {
             this.CA_Restaurant += prix;
