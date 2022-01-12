@@ -10,7 +10,7 @@ namespace LeGrandRestaurant
     {
 
         private readonly int _Id;
-        private readonly List<Commande> _getCommandes = new();
+        private readonly IList<Commande> _getCommandes ;
         private bool isNotPaid = false;
         private Commande _commande { get; set; }
         private  Restaurant _restaurant;
@@ -22,17 +22,12 @@ namespace LeGrandRestaurant
         {
             return this.isNotPaid = true;
         }
-        public Serveur()
-        {
-            
 
-        }
-
-
-        public Serveur(int Id )
+        public Serveur(int Id, IList<Commande> Commandes)
         {
             this._Id = Id;
-            
+            this._getCommandes = Commandes;
+
         }
 
         public double getCA()
