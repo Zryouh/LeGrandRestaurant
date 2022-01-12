@@ -10,15 +10,15 @@ namespace LeGrandRestaurant
     {
 
         private bool isEpingle = false;
-        public readonly List<Plat> _getPlats = new();
-        public Plat _plat = new Plat("",0);
+        public readonly List<Plat> _plats = new();
+        //public Plat _plat = new Plat("",0);
         public Commande()
         {
 
         }
         public Commande(Plat plat)
         {
-            this._plat = plat;
+            this._plats.Add(plat);
         }
 
         public void makeEpingle()
@@ -33,7 +33,7 @@ namespace LeGrandRestaurant
 
         public void ajouterPlat(Plat plat)
         {
-            _getPlats.Add(plat);
+            _plats.Add(plat);
         }
 
     }
