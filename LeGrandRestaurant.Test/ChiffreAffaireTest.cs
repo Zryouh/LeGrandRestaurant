@@ -14,8 +14,9 @@ namespace LeGrandRestaurant.Test
                             "ALORS celui-ci est à 0")]
         public void ChiffreAffaireAtZero()
         {
+
             //ÉTANT DONNÉ un nouveau serveur
-            var serveur = new Serveur(1);
+            var serveur = new Serveur(1, );
             var restaurant = new Restaurant();
 
 

@@ -41,5 +41,11 @@ namespace LeGrandRestaurant.Test
             var tacheCuisine = restaurant.TacheCuisine;
             Assert.DoesNotContain(commande, tacheCuisine);
         }
+
+        //SCENARIO DE TEST DE RECETTE
+        // Le client entre dans le restaurant,
+        // le serveur lui attribue sa table ,
+        // le client prend commande auprés du serveur et il lui donne le plat.  
+
     }
 }
