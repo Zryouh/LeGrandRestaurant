@@ -8,8 +8,6 @@ namespace LeGrandRestaurant
 {
     public interface IBdd
     {
-
-        Commande.
     }
 
     public class Bdd 

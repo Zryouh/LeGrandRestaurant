@@ -16,17 +16,12 @@ namespace LeGrandRestaurant.Test.Unit
         {
 
             //ÉTANT DONNÉ un nouveau serveur
-<<<<<<< HEAD:LeGrandRestaurant.Test/ChiffreAffaireTest.cs
-            var serveur = new Serveur(1, );
-            var restaurant = new Restaurant();
-=======
+
             var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
 
             var serveurs = restaurant.getServeurs();
             var serveur = serveurs[0];
-
->>>>>>> Said_test:LeGrandRestaurant.Test/Unit/ChiffreAffaireTest.cs
 
 
             //QUAND on récupére son chiffre d'affaires
