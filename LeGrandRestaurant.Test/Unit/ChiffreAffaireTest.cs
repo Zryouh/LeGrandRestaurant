@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Xunit;
 
-namespace LeGrandRestaurant.Test
+namespace LeGrandRestaurant.Test.Unit
 {
     public class ChiffreAffaireTest
     {
@@ -15,8 +15,12 @@ namespace LeGrandRestaurant.Test
         public void ChiffreAffaireAtZero()
         {
             //ÉTANT DONNÉ un nouveau serveur
-            var serveur = new Serveur(1);
-            var restaurant = new Restaurant();
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
+            var commande = new Commande();
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
 
 
             //QUAND on récupére son chiffre d'affaires
@@ -35,14 +39,20 @@ namespace LeGrandRestaurant.Test
         public void ChiffreAffaireAtOrder()
         {
             //ÉTANT DONNÉ un nouveau serveur
-            var serveur = new Serveur(1);
-            var restaurant = new Restaurant();
-            var commande = new Commande();
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var menu = new Menu();
             var plat = new Plat("Pates au saumon", 15.2);
-            //QUAND il prend une commande
             menu.ajouterPlat(plat);
             restaurant.AjouteMenu(menu);
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
+            //QUAND il prend une commande
+            var commande = new Commande();
+            commande.ajouterPlat(plat);
+            serveur.takeOrder(commande);
+            
             //ALORS son chiffre d'affaires est le montant de celle-ci
             Assert.Equal(serveur.getCA(), plat.Prix);
 
@@ -54,9 +64,12 @@ namespace LeGrandRestaurant.Test
         public void ChiffreAffaireSomme()
         {
             //ÉTANT DONNÉ un serveur ayant déjà pris une commande
-            var serveur = new Serveur(1);
-            var restaurant = new Restaurant();
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
             var menu = new Menu();
             var plat = new Plat("Pates au saumon", 15.2);
             menu.ajouterPlat(plat);
@@ -88,20 +101,19 @@ namespace LeGrandRestaurant.Test
             //ÉTANT DONNÉ un restaurant ayant X serveurs
 
             Random rdn = new Random();
-            var plat = new Plat("pates au saumon", rdn.Next()) ;
-            var commande = new Commande(plat);
+            var plat = new Plat("pates au saumon", rdn.Next(10, 50)) ;
+            var commande = new Commande();
+            commande.ajouterPlat(plat);
 
             var nbrServeurs = 100;
-            var serveurs = new ServeurGenerator().Generate(nbrServeurs);
 
-            Serveur[] serveurss = serveurs.ToArray();
 
-            var restaurant = new Restaurant(serveurss) ;
-
+            var restaurant = new RestaurantBuilder().avecXServeur(nbrServeurs);
+            var serveurs = restaurant.getServeurs();
 
             //QUAND tous les serveurs prennent une commande d'un montant Y
-            
-            foreach(Serveur serveur in serveurs)
+
+            foreach (Serveur serveur in serveurs)
             {
                 serveur.takeOrder(commande);
             }
@@ -122,30 +134,27 @@ namespace LeGrandRestaurant.Test
         {
             //ÉTANT DONNÉ une franchise ayant X restaurants de Y serveurs chacuns
             Random rdn = new Random();
-            var plat = new Plat("pates au saumon", rdn.Next());
-            var commande = new Commande(plat);
-            
-            var franchise = new Franchise();
+            var plat = new Plat("pates au saumon", rdn.Next(10, 50));
+            var commande = new Commande();
+            commande.ajouterPlat(plat);
+
             var nbrResto = 100;
             var nbrServ = 100;
-            var restaurants = new RestaurantGenerator().Generate(nbrResto);
 
-            List<Restaurant> _restaurants = restaurants.ToList();
-            var serveurs = new ServeurGenerator().Generate(nbrServ);
-            Serveur[] serveurss = serveurs.ToArray();
+            var franchise = new FranchiseBuilder().avecXRestaurantXTableEtXServeur(nbrResto, 1, nbrServ);
+            var restaurants = franchise.getRestaurants();
 
-            foreach (Restaurant restaurant in restaurants)
-            {
-                restaurant.addServeurs(serveurss);
-            }
-            franchise.AjouterRestaurants(_restaurants);
 
             //QUAND tous les serveurs prennent une commande d'un montant Z
-
-            foreach (Serveur serveur in serveurs)
+            foreach (Restaurant restaurant in restaurants)
             {
-                serveur.takeOrder(commande);
+                List<Serveur> serveurs = restaurant.getServeurs();
+                foreach (Serveur serveur in serveurs)
+                {
+                    serveur.takeOrder(commande);
+                }
             }
+            
             //ALORS le chiffre d'affaires de la franchise est X * Y * Z
             Assert.Equal(nbrResto * nbrServ * plat.Prix, franchise.getCA());
 

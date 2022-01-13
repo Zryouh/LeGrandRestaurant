@@ -1,6 +1,8 @@
-﻿using Xunit;
+﻿using LeGrandRestaurant.Test.Helpers;
+using System.Collections.Generic;
+using Xunit;
 
-namespace LeGrandRestaurant.Test
+namespace LeGrandRestaurant.Test.Unit
 {
     public class CommandeClientTest
     {
@@ -10,9 +12,12 @@ namespace LeGrandRestaurant.Test
         public void CommandeClient_ajoutTache()
         {
             // ÉTANT DONNE un serveur dans un restaurant
-            var serveur = new Serveur(1);
+
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
-            var restaurant = new Restaurant(serveur);
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
 
 
             // QUAND il prend une commande de nourriture
@@ -29,9 +34,11 @@ namespace LeGrandRestaurant.Test
         public void CommandeClient_retireTache()
         {
             // ÉTANT DONNE un serveur dans un restaurant
-            var serveur = new Serveur(1);
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
-            var restaurant = new Restaurant(serveur);
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
 
 
             // QUAND il prend une commande de boisson

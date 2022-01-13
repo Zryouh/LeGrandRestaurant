@@ -23,4 +23,9 @@
     <ProjectReference Include="..\LeGrandRestaurant\LeGrandRestaurant.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Integration\" />
+    <Folder Include="System\" />
+  </ItemGroup>
+
 </Project>

@@ -1,11 +1,12 @@
-﻿using System;
+﻿using LeGrandRestaurant.Test.Helpers;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using Xunit;
 
-namespace LeGrandRestaurant.Test
+namespace LeGrandRestaurant.Test.Unit
 {
     public class EpinglageTest
     {
@@ -15,10 +16,11 @@ namespace LeGrandRestaurant.Test
         public void CommandeNoPaid_Epingle()
         {
             // ÉTANT DONNE un serveur ayant pris une commande
+            var restaurant = new RestaurantBuilder().avecXServeur(1);
+
             var commande = new Commande();
-            var serveur = new Serveur(commande);
-            var restaurant = new Restaurant(serveur);
-            
+            var serveur = restaurant.getServeurs()[0];
+
 
             serveur.takeOrder(commande);
 
@@ -39,10 +41,12 @@ namespace LeGrandRestaurant.Test
         public void CommandeNoPaid_Gendarmerie()
         {
             // ÉTANT DONNE un serveur ayant épinglé une commande
-            var restaurant = new Restaurant();
-            var commandes = new List<Commande>() { new Commande(), new Commande(), new Commande() };
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
-            var serveur = new Serveur(commande);
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
             var reponse = serveur.OrderNoPaid(commande);
             var epingle = new Epinglage(commande, new DateTime(2021,12,15));
             // QUAND elle date d'il y a au moins 15 jours 
@@ -58,10 +62,12 @@ namespace LeGrandRestaurant.Test
         public void CommandeNoPaid_Gendarmerie_List()
         {
             // ÉTANT DONNE une commande Epingler à transmettre gendarmerie 
-            var restaurant = new Restaurant();
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
-           
-            var serveur = new Serveur(commande);
+
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
             var reponse = serveur.OrderNoPaid(commande);
             var epingle = new Epinglage(commande, new DateTime(2021, 12, 15));
             restaurant.addToEpinglage(epingle);
@@ -82,10 +88,12 @@ namespace LeGrandRestaurant.Test
         public void CommandeNoPaid_Gendarmerie_NoList()
         {
             // ÉTANT DONNE une commande à transmettre gendarmerie
-            var restaurant = new Restaurant();
+            var restaurant = new RestaurantBuilder().avecUnServeurEtUneTable();
             var commande = new Commande();
 
-            var serveur = new Serveur(commande);
+            var serveurs = restaurant.getServeurs();
+            var serveur = serveurs[0];
+
             var reponse = serveur.OrderNoPaid(commande);
             var epingle = new Epinglage(commande, new DateTime(2021, 12, 15));
             restaurant.addToEpinglage(epingle);
