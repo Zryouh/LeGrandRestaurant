@@ -61,7 +61,7 @@ namespace LeGrandRestaurant
             foreach(Plat plat in commande._plats)
             {
                 this.ajouterCA(plat.Prix);
-                //this._restaurant.ajouterCA_Restaurant(plat.Prix);
+                this._restaurant.ajouterCA_Restaurant(plat.Prix);
             }
             
         }

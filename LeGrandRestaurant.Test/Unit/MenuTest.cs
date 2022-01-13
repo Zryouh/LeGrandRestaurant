@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using LeGrandRestaurant.Test.Helpers;
+using Xunit;
 
-namespace LeGrandRestaurant.Test
+namespace LeGrandRestaurant.Test.Unit
 {
 	
 	public class MenuTest
@@ -12,7 +13,7 @@ namespace LeGrandRestaurant.Test
         public void Modification_Prix_Menu()
         {
             // ÉTANT DONNE un restaurant ayant le statut de filiale d'une franchise
-            var franchise = new Franchise();
+            var franchise = new FranchiseBuilder().Build();
             var table = new Table();
             var restaurant = new Restaurant(1);
             restaurant.BeFiliale();
@@ -41,7 +42,7 @@ namespace LeGrandRestaurant.Test
         public void NoModification_Prix_Menu()
         {
             // ÉTANT DONNE un restaurant appartenant à une franchise et définissant un menu ayant un plat
-            var franchise = new Franchise();
+            var franchise = new FranchiseBuilder().Build();
             var table = new Table();
             var restaurant = new Restaurant(1);
           
@@ -71,7 +72,7 @@ namespace LeGrandRestaurant.Test
         public void Restaurant_Carte_Prix()
         {
             // ÉTANT DONNE un restaurant appartenant à une franchise et définissant un menu ayant un plat
-            var franchise = new Franchise();
+            var franchise = new FranchiseBuilder().Build();
             var table = new Table();
             var restaurant = new Restaurant(1);
 

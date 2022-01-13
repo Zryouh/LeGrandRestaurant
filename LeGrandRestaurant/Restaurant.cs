@@ -7,8 +7,8 @@ namespace LeGrandRestaurant
 {
     public class Restaurant
     {
-        private readonly Table[] _tables ;
-        private Serveur[] _serveurs { get; set; }
+        private readonly List<Table> _tables ;
+        private List<Serveur> _serveurs { get; set; }
         private Menu _menu { get; set; }
         private bool isFiliale = false;
         private readonly int _Id;
@@ -23,15 +23,21 @@ namespace LeGrandRestaurant
         {
             this._Id = Id;
         }
+
+        public List<Table> getTables()
+        {
+            return _tables;
+        }
+
         public int getId()
         {
             return this._Id;
         }
-        public Serveur[] getServeurs()
+        public List<Serveur> getServeurs()
         {
             return this._serveurs;
         }
-        public void addServeurs(Serveur[] serveurs)
+        public void addServeurs(List<Serveur> serveurs)
         {
             foreach(Serveur serveur in serveurs)
             {
@@ -39,18 +45,10 @@ namespace LeGrandRestaurant
             }
         }
 
-
-        public Restaurant()
-        {
-
-        }
-
-        public Restaurant(params Table[] tables)
+        public Restaurant(List<Table> tables, List<Serveur> serveurs)
         {
             _tables = tables;
-        }
-        public Restaurant(params Serveur[] serveurs)
-        {
+
             foreach (Serveur serveur in serveurs)
             {
                 serveur.setRestauant(this);
@@ -89,7 +87,7 @@ namespace LeGrandRestaurant
 
         public bool IsFiliale => isFiliale; 
 
-        public Table[] TablesesLibres => _tables.Where(table => table.EstLibre).ToArray();
+        public List<Table> TablesesLibres => _tables.Where(table => table.EstLibre).ToList();
 
         public IEnumerable<Commande> TacheCuisine => _serveurs.SelectMany(serveur => serveur.GetCommandes);
 
