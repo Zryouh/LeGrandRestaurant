@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using Xunit;
 
-namespace LeGrandRestaurant.Test.Unit
+namespace LeGrandRestaurant.Test.Usecases
 {
     public class DebutServiceTest
     {

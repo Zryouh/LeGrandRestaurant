@@ -1,7 +1,7 @@
 ﻿using LeGrandRestaurant.Test.Helpers;
 using Xunit;
 
-namespace LeGrandRestaurant.Test.Unit
+namespace LeGrandRestaurant.Test.Usecases
 {
 	
 	public class MenuTest

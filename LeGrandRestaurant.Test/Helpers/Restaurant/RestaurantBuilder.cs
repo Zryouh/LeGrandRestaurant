@@ -67,5 +67,16 @@ namespace LeGrandRestaurant.Test.Helpers
             Restaurant restaurant = new(tables, serveurs);
             return restaurant;
         }
+
+        public Restaurant avecUneTableAffectée()
+        {
+            Restaurant restaurant = new RestaurantBuilder().avecXTable(1);
+            var table = restaurant.getTables()[0];
+
+            var client = new Client();
+
+            table.AffecterA(client);
+            return restaurant;
+        }
     }
 }

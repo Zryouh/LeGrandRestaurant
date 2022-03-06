@@ -1,48 +1,40 @@
 ﻿using LeGrandRestaurant.Test.Helpers;
+using System.Collections.Generic;
 using Xunit;
 
 namespace LeGrandRestaurant.Test.Unit
 {
     public class InstallationClientTest
     {
-        [Fact(DisplayName = "ÉTANT DONNE une table dans un restaurant ayant débuté son service " +
-                            "QUAND un client est affecté à une table " +
-                            "ALORS cette table n'est plus sur la liste des tables libres du restaurant")]
-        public void InstallationClient_RetireLaTable()
+        [Fact(DisplayName = "La table est libre à sa création")]
+        public void CréerUneTable()
         {
-            // ÉTANT DONNE une table dans un restaurant ayant débuté son service
-            var restaurant = new RestaurantBuilder().avecXTable(1);
-            var table = restaurant.getTables()[0];
-
-            restaurant.DébuterService();
-
-            // QUAND un client est affecté à une table
-            var client = new Client();
-            table.AffecterA(client);
-
-            // ALORS cette table n'est plus sur la liste des tables libres du restaurant
-            var tablesLibres = restaurant.TablesesLibres;
-            Assert.DoesNotContain(table, tablesLibres);
+            Table table = new TableBuilder().Build();
+            Assert.True(table.libre());
         }
 
-        [Fact(DisplayName =  "ÉTANT DONNE une table occupée par un client " +
-                             "QUAND la table est libérée " +
-                             "ALORS cette table appraît sur la liste des tables libres du restaurant")]
-        public void DépartClient_RemetLaTable()
+        [Fact(DisplayName="Affecter table à un client")]
+        public void AffecterTableClient_RetirerLaTableDansLaListeDesTables()
         {
-            // ÉTANT DONNE une table occupée par un client
-            var restaurant = new RestaurantBuilder().avecXTable(1);
-            var table = restaurant.getTables()[0];
+            Table table = new TableBuilder().Build();
 
-            var client = new Client();
+            Client client = new Client();
             table.AffecterA(client);
 
-            // QUAND la table est libérée
+            Assert.False(table.libre());
+        }
+
+        [Fact(DisplayName = "Retirer table quand le client part")]
+        public void DépartClient_RemetLaTable()
+        {
+            Table table = new TableBuilder().Build();
+
+            Client client = new Client();
+            table.AffecterA(client);
+
             table.Libérer();
 
-            // ALORS cette table appraît sur la liste des tables libres du restaurant
-            var tablesLibres = restaurant.TablesesLibres;
-            Assert.Contains(table, tablesLibres);
+            Assert.True(table.libre());
         }
     }
 }

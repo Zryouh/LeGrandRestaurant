@@ -8,8 +8,10 @@ namespace LeGrandRestaurant
         private readonly int _nbTable = 3;
         Master tableAffectedMaster = null;
         Serveur tableAffectedServeur = null;
+        internal bool EstLibre { get; private set; } = true;
 
-        
+
+
         public Table()
         {
             
@@ -48,7 +50,11 @@ namespace LeGrandRestaurant
             return tableAffectedServeur;
         }
 
-        internal bool EstLibre { get; private set; } = true;
+        public bool libre()
+        {
+            return EstLibre;
+        }
+
 
     }
 }

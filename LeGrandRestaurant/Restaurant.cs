@@ -45,6 +45,11 @@ namespace LeGrandRestaurant
             }
         }
 
+        public Restaurant(List<Table> tables)
+        {
+            _tables = tables;
+        }
+
         public Restaurant(List<Table> tables, List<Serveur> serveurs)
         {
             _tables = tables;
