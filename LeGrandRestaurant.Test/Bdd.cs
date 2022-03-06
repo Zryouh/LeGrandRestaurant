@@ -8,8 +8,11 @@ namespace LeGrandRestaurant
 {
     public interface IBdd
     {
+<<<<<<< HEAD
 
        
+=======
+>>>>>>> 53a0dcaea935d0d0f965606c5e5710f8c80fb829
     }
 
     public class Bdd 
